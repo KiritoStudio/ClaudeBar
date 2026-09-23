@@ -11,7 +11,7 @@
 "usage.sonnet_only" = "仅 Sonnet";
 "usage.opus_only" = "仅 Opus";
 "usage.sonnet_not_used" = "您尚未使用过 Sonnet";
-"usage.percent_used" = "已使用 %d%%";
+"usage.percent_left" = "剩余 %d%%";
 "usage.spent" = "已消费 %@";
 "usage.resets_limit" = "%@ 重置 · 限额：%@";
 "usage.unlimited" = "无限制";

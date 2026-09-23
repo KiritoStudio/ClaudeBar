@@ -176,7 +176,7 @@ struct UsageView: View {
 
                 progressBar(percent: bucket.percent)
 
-                Text(L("usage.percent_used", bucket.percent))
+                Text(L("usage.percent_left", UsageBucket.remaining(fromUsed: bucket.percent)))
                     .font(.system(size: 12))
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: true, vertical: false)
@@ -203,7 +203,7 @@ struct UsageView: View {
 
                 progressBar(percent: extra.percent)
 
-                Text(L("usage.percent_used", extra.percent))
+                Text(L("usage.percent_left", UsageBucket.remaining(fromUsed: extra.percent)))
                     .font(.system(size: 12))
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: true, vertical: false)
@@ -300,6 +300,7 @@ struct UsageView: View {
 
     // MARK: - Progress Bar
 
+    /// Takes the used percentage so `barColor` keeps its thresholds; the fill shows what is left.
     private func progressBar(percent: Int) -> some View {
         GeometryReader { geo in
             ZStack(alignment: .leading) {
@@ -307,7 +308,7 @@ struct UsageView: View {
                     .fill(.primary.opacity(0.1))
                 RoundedRectangle(cornerRadius: 4)
                     .fill(barColor(for: percent))
-                    .frame(width: max(4, geo.size.width * CGFloat(min(percent, 100)) / 100))
+                    .frame(width: max(4, geo.size.width * CGFloat(UsageBucket.remaining(fromUsed: percent)) / 100))
             }
         }
         .frame(height: 8)

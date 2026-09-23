@@ -11,7 +11,7 @@
 "usage.sonnet_only" = "Только Sonnet";
 "usage.opus_only" = "Только Opus";
 "usage.sonnet_not_used" = "Вы ещё не использовали Sonnet";
-"usage.percent_used" = "Использовано %d%%";
+"usage.percent_left" = "Осталось %d%%";
 "usage.spent" = "Потрачено %@";
 "usage.resets_limit" = "Сброс %@ · Лимит: %@";
 "usage.unlimited" = "без ограничений";

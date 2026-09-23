@@ -11,7 +11,7 @@
 "usage.sonnet_only" = "Yalnızca Sonnet";
 "usage.opus_only" = "Yalnızca Opus";
 "usage.sonnet_not_used" = "Henüz Sonnet kullanmadınız";
-"usage.percent_used" = "%%%d kullanıldı";
+"usage.percent_left" = "%%%d kaldı";
 "usage.spent" = "%@ harcandı";
 "usage.resets_limit" = "%@ tarihinde sıfırlanır · Limit: %@";
 "usage.unlimited" = "limitsiz";

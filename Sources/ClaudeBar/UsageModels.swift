@@ -166,6 +166,11 @@ struct UsageBucket: Codable, Equatable {
         Int((utilization ?? 0).rounded())
     }
 
+    /// Remaining share shown to the user. Utilization can overshoot 100, which still means nothing is left.
+    static func remaining(fromUsed used: Int) -> Int {
+        max(0, 100 - used)
+    }
+
     var resetDate: Date? {
         ISO8601.parse(resetsAt)
     }

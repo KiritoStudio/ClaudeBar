@@ -21,7 +21,7 @@ struct ClaudeBarApp: App {
             Image(systemName: "gauge.medium")
             
             if service.showPercentage, let percent = service.usage?.fiveHour?.percent {
-                Text("\(percent)%")
+                Text("\(UsageBucket.remaining(fromUsed: percent))%")
                     .font(.caption2)
                     .monospacedDigit()
             }

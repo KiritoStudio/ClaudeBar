@@ -37,13 +37,13 @@
 - **Per-model Weekly Limits** - Separate rows for Fable, Opus and Sonnet whenever your plan reports them
 - **Usage Credits** - Shows one-time credits and when they expire
 - **Extra Usage Support** - Track pay-as-you-go spend, and see why it is disabled when your organization turns it off
-- **Color-coded Progress Bars** - Green, yellow, orange, red based on usage percentage
+- **Color-coded Progress Bars** - Bars show how much is left, turning green, yellow, orange, red as the limit runs out
 - **Multi-language Support** - English, Turkish, Chinese, Spanish, Russian with in-app language picker
 - **Customizable Notifications** - Native Notification Center alerts at 50%, 75%, 100%, or on reset, for every tracked limit
 - **Auto-refresh** - Configurable refresh interval (30s, 1m, 2m, 5m)
 - **5-hour Window Anchor** - Opt-in: when the 5-hour window is untouched, sends one short Haiku prompt through the `claude` CLI so the window starts and its reset time becomes known. Never anchors twice within one window
 - **Launch at Login** - Optionally start with your Mac
-- **Menu Bar Percentage** - Show/hide usage percentage in menu bar
+- **Menu Bar Percentage** - Show/hide the remaining 5-hour percentage in menu bar
 - **Native Experience** - Built with SwiftUI, follows macOS design guidelines
 - **Lightweight** - Minimal resource footprint, no Electron
 - **Privacy Focused** - No analytics, no telemetry

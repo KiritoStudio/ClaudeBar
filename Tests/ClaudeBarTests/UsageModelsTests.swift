@@ -101,6 +101,13 @@ final class UsageModelsTests: XCTestCase {
         XCTAssertNil(PlanBadge.text(subscriptionType: nil, rateLimitTier: nil))
     }
 
+    func testRemainingPercentIsComplementOfUsed() {
+        XCTAssertEqual(UsageBucket.remaining(fromUsed: 0), 100)
+        XCTAssertEqual(UsageBucket.remaining(fromUsed: 43), 57)
+        XCTAssertEqual(UsageBucket.remaining(fromUsed: 100), 0)
+        XCTAssertEqual(UsageBucket.remaining(fromUsed: 112), 0)
+    }
+
     func testExpiringSoonUsesFiveMinuteLeeway() {
         let now = Date(timeIntervalSince1970: 1_000_000)
         func creds(expiresInSeconds: Double) -> KeychainCredentials.OAuthCredentials {

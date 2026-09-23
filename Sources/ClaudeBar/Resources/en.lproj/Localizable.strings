@@ -11,7 +11,7 @@
 "usage.sonnet_only" = "Sonnet only";
 "usage.opus_only" = "Opus only";
 "usage.sonnet_not_used" = "You haven't used Sonnet yet";
-"usage.percent_used" = "%d%% used";
+"usage.percent_left" = "%d%% left";
 "usage.spent" = "%@ spent";
 "usage.resets_limit" = "Resets %@ · Limit: %@";
 "usage.unlimited" = "unlimited";
