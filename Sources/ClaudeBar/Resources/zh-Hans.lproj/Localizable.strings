@@ -110,3 +110,30 @@
 "settings.notifications_denied" = "已在系统设置 > 通知中关闭";
 "limit.opus_weekly" = "Opus 每周";
 "limit.model_weekly" = "%@ 每周";
+
+/* 5-Hour Window Anchor */
+"anchor.toggle" = "锚定 5 小时窗口";
+"anchor.now" = "立即锚定";
+"anchor.title.running" = "正在启动 Claude 会话";
+"anchor.title.failed" = "锚定失败";
+"anchor.title.off" = "5 小时窗口锚定已关闭";
+"anchor.title.started" = "5 小时窗口已开始";
+"anchor.title.cooldown" = "本 5 小时窗口已锚定";
+"anchor.title.no_window" = "未返回 5 小时窗口";
+"anchor.title.unknown" = "无法判断窗口是否已开始";
+"anchor.title.waiting" = "等待新的 5 小时窗口";
+"anchor.detail.running" = "正在用 Claude Code 发送一条简短提示。";
+"anchor.detail.off" = "开启后自动固定 5 小时重置时间。每个窗口用 Haiku 发一条简短提示。";
+"anchor.detail.started" = "窗口已自行开始，重置时间是真实的。";
+"anchor.detail.cooldown" = "下一个窗口之前无需操作。";
+"anchor.detail.no_window" = "Claude 当前没有返回 5 小时限额。";
+"anchor.detail.unknown" = "Claude 未返回重置时间，暂不锚定。";
+"anchor.detail.waiting" = "5 小时窗口重置后且未被使用时立即锚定。";
+"anchor.last_anchored" = "上次锚定 %@。";
+"anchor.error.not_found" = "找不到 claude CLI，请在设置中填写完整路径。";
+"anchor.error.not_executable" = "设置的 claude CLI 路径不可执行：%@";
+"anchor.error.launch_failed" = "无法启动 claude CLI。%@";
+"anchor.error.timed_out" = "claude CLI 未在规定时间内完成。";
+"anchor.error.exit_status" = "claude CLI 退出，状态码 %d。";
+"settings.claude_cli" = "claude CLI";
+"settings.claude_cli_placeholder" = "自动查找";

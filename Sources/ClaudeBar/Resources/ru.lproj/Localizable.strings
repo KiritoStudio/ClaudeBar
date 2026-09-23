@@ -110,3 +110,30 @@
 "settings.notifications_denied" = "Отключены в Системных настройках > Уведомления";
 "limit.opus_weekly" = "Opus недельный";
 "limit.model_weekly" = "%@ недельный";
+
+/* 5-Hour Window Anchor */
+"anchor.toggle" = "Закрепить 5-часовое окно";
+"anchor.now" = "Закрепить сейчас";
+"anchor.title.running" = "Запуск сеанса Claude";
+"anchor.title.failed" = "Не удалось закрепить";
+"anchor.title.off" = "Закрепление 5-часового окна выключено";
+"anchor.title.started" = "5-часовое окно уже началось";
+"anchor.title.cooldown" = "Это 5-часовое окно закреплено";
+"anchor.title.no_window" = "5-часовое окно не передано";
+"anchor.title.unknown" = "Неизвестно, началось ли окно";
+"anchor.title.waiting" = "Ожидание нового 5-часового окна";
+"anchor.detail.running" = "Отправка короткого запроса через Claude Code.";
+"anchor.detail.off" = "Включите, чтобы автоматически фиксировать время сброса 5-часового окна. Один короткий запрос Haiku на окно.";
+"anchor.detail.started" = "Окно началось само, время сброса уже реальное.";
+"anchor.detail.cooldown" = "До следующего окна делать нечего.";
+"anchor.detail.no_window" = "Claude сейчас не возвращает 5-часовой лимит.";
+"anchor.detail.unknown" = "Claude не передал время сброса, закрепление отложено.";
+"anchor.detail.waiting" = "Закрепляет, как только 5-часовое окно сбросится и останется нетронутым.";
+"anchor.last_anchored" = " Последнее закрепление %@.";
+"anchor.error.not_found" = "Не удалось найти claude CLI. Укажите полный путь в настройках.";
+"anchor.error.not_executable" = "Указанный путь к claude CLI не исполняемый: %@";
+"anchor.error.launch_failed" = "Не удалось запустить claude CLI. %@";
+"anchor.error.timed_out" = "claude CLI не завершился вовремя.";
+"anchor.error.exit_status" = "claude CLI завершился с кодом %d.";
+"settings.claude_cli" = "claude CLI";
+"settings.claude_cli_placeholder" = "Определяется автоматически";

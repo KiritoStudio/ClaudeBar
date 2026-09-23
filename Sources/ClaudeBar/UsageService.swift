@@ -20,6 +20,12 @@ final class UsageService {
     private(set) var languageRefreshID = 0
     /// Kullanıcı bildirim iznini reddettiyse true; ayarlar panelinde uyarı gösterilir
     private(set) var notificationsDenied = false
+    private(set) var fiveHourAnchor = FiveHourAnchorStatus(
+        isEnabled: FiveHourAnchorPreferences.isEnabled,
+        outcome: .idle,
+        lastAnchorAt: FiveHourAnchorPreferences.lastAnchorAt,
+        skipReason: nil
+    )
 
     // MARK: - Settings (persisted)
 
@@ -65,6 +71,8 @@ final class UsageService {
     private let store: CredentialStore
     private let client: OAuthClient
     private let notifier: Notifier
+    private let sessionStarter = ClaudeSessionStarter()
+    private var anchorTask: Task<Void, Never>?
     /// Kova anahtarı → son görülen durum; eşik geçişleri buradan hesaplanır
     private var previous: [String: BucketSnapshot] = [:]
     /// Sunucunun invalid_grant dediği refresh token; aynı token ile her yoklamada tekrar denemek anlamsız
@@ -157,9 +165,86 @@ final class UsageService {
             usage = decoded
             error = nil
             lastUpdate = Date()
+            evaluateFiveHourAnchor()
         } catch {
             self.error = L("error.parse")
         }
+    }
+
+    // MARK: - 5-Hour Anchor
+
+    func setFiveHourAnchorEnabled(_ isEnabled: Bool) {
+        FiveHourAnchorPreferences.isEnabled = isEnabled
+        fiveHourAnchor.isEnabled = isEnabled
+        evaluateFiveHourAnchor()
+    }
+
+    /// Starts an anchoring session regardless of the current window state. This is how a user
+    /// tests the CLI setup without waiting for a reset.
+    func anchorFiveHourWindowNow() {
+        startFiveHourAnchor()
+    }
+
+    /// Anchors only from freshly parsed usage, never from a stale snapshot, so a window that
+    /// started elsewhere since the last poll is not anchored a second time.
+    private func evaluateFiveHourAnchor() {
+        let decision = FiveHourAnchorPolicy.decide(
+            isEnabled: fiveHourAnchor.isEnabled,
+            isRunning: fiveHourAnchor.isRunning,
+            fiveHour: usage?.fiveHour,
+            lastAnchorAt: fiveHourAnchor.lastAnchorAt
+        )
+
+        switch decision {
+        case .skip(let reason):
+            fiveHourAnchor.skipReason = reason
+        case .anchor:
+            fiveHourAnchor.skipReason = nil
+            startFiveHourAnchor()
+        }
+    }
+
+    private func startFiveHourAnchor() {
+        guard anchorTask == nil else { return }
+
+        fiveHourAnchor.outcome = .running
+        anchorTask = Task { [weak self] in
+            guard let self else { return }
+            do {
+                let startedAt = try await sessionStarter.start(
+                    prompt: FiveHourAnchor.prompt,
+                    timeout: FiveHourAnchor.commandTimeout
+                )
+                finishFiveHourAnchor(startedAt: startedAt)
+            } catch let error as ClaudeSessionStartError {
+                failFiveHourAnchor(error)
+            } catch {
+                failFiveHourAnchor(.launchFailed(error.localizedDescription))
+            }
+        }
+    }
+
+    private func finishFiveHourAnchor(startedAt: Date) {
+        anchorTask = nil
+        recordFiveHourAnchorAttempt(at: startedAt)
+        fiveHourAnchor.outcome = .succeeded(startedAt)
+        // The anchoring request has landed, so the usage endpoint can now report the reset time.
+        Task { await refresh() }
+    }
+
+    private func failFiveHourAnchor(_ error: ClaudeSessionStartError) {
+        anchorTask = nil
+        if error.mayHaveSpentRequest {
+            // The CLI ran, so the request may already have started the window. Hold the cooldown
+            // instead of spending a second request on the next refresh.
+            recordFiveHourAnchorAttempt(at: Date())
+        }
+        fiveHourAnchor.outcome = .failed(error.errorDescription ?? "")
+    }
+
+    private func recordFiveHourAnchorAttempt(at date: Date) {
+        FiveHourAnchorPreferences.lastAnchorAt = date
+        fiveHourAnchor.lastAnchorAt = date
     }
 
     // MARK: - Token Refresh

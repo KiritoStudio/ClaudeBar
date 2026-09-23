@@ -6,6 +6,7 @@ struct UsageView: View {
     @Environment(UsageService.self) private var service
     @State private var showSettings = false
     @State private var showAbout = false
+    @AppStorage(FiveHourAnchorPreferences.Key.cliPath) private var claudeCLIPath = ""
 
     /// Bir kullanım satırının görünüm verisi; hangi API alanından geldiği burada önemsizdir
     private struct LimitRow: Identifiable {
@@ -35,6 +36,7 @@ struct UsageView: View {
                         bucket: bucket
                     )
                 }
+                fiveHourAnchorRow
 
                 let weekly = weeklyRows(for: usage)
                 if !weekly.isEmpty {
@@ -216,6 +218,86 @@ struct UsageView: View {
         .padding(.vertical, 8)
     }
 
+    // MARK: - 5-Hour Anchor Row
+
+    /// The one control in the app that can spend a Claude request, so it states what it does and
+    /// stays off until the user opts in.
+    private var fiveHourAnchorRow: some View {
+        let anchor = service.fiveHourAnchor
+        let style = anchorStyle(for: anchor)
+
+        return HStack(alignment: .top, spacing: 10) {
+            Image(systemName: style.icon)
+                .font(.system(size: 15))
+                .foregroundStyle(style.tint)
+                .frame(width: 18)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(anchor.title)
+                    .font(.system(size: 12, weight: .semibold))
+                Text(anchor.detail)
+                    .font(.system(size: 11))
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Spacer(minLength: 4)
+
+            VStack(alignment: .trailing, spacing: 6) {
+                Toggle(L("anchor.toggle"), isOn: Binding(
+                    get: { anchor.isEnabled },
+                    set: { service.setFiveHourAnchorEnabled($0) }
+                ))
+                .labelsHidden()
+                .toggleStyle(.switch)
+                .controlSize(.small)
+
+                if anchor.isRunning {
+                    ProgressView().controlSize(.small)
+                } else {
+                    Button(L("anchor.now")) {
+                        service.anchorFiveHourWindowNow()
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.mini)
+                }
+            }
+        }
+        .padding(10)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(style.tint.opacity(0.08))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(style.tint.opacity(0.25), lineWidth: 1)
+        )
+        .padding(.horizontal, 16)
+        .padding(.vertical, 6)
+    }
+
+    private func anchorStyle(for anchor: FiveHourAnchorStatus) -> (icon: String, tint: Color) {
+        switch anchor.outcome {
+        case .running:
+            return ("bolt.horizontal.circle.fill", .blue)
+        case .failed:
+            return ("exclamationmark.triangle.fill", .orange)
+        case .succeeded, .idle:
+            break
+        }
+        guard anchor.isEnabled else { return ("timer", .secondary) }
+
+        // A window that already started needs nothing, so it reads as settled rather than pending.
+        switch anchor.skipReason {
+        case .windowAlreadyStarted, .cooldown:
+            return ("checkmark.circle.fill", .green)
+        case .noFiveHourWindow, .unknownWindowStart:
+            return ("questionmark.circle", .secondary)
+        case .disabled, .alreadyRunning, .none:
+            return ("timer", .accentColor)
+        }
+    }
+
     // MARK: - Progress Bar
 
     private func progressBar(percent: Int) -> some View {
@@ -367,6 +449,14 @@ struct UsageView: View {
                 }
                 .pickerStyle(.menu)
                 .frame(width: 70)
+            }
+
+            SettingsRow(title: L("settings.claude_cli")) {
+                TextField(L("settings.claude_cli_placeholder"), text: $claudeCLIPath)
+                    .textFieldStyle(.roundedBorder)
+                    .font(.system(size: 11))
+                    .controlSize(.small)
+                    .frame(width: 170)
             }
 
             Divider()

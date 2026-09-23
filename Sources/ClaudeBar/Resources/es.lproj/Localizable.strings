@@ -110,3 +110,30 @@
 "settings.notifications_denied" = "Desactivadas en Ajustes del Sistema > Notificaciones";
 "limit.opus_weekly" = "Opus semanal";
 "limit.model_weekly" = "%@ semanal";
+
+/* 5-Hour Window Anchor */
+"anchor.toggle" = "Anclar ventana de 5 h";
+"anchor.now" = "Anclar ahora";
+"anchor.title.running" = "Iniciando una sesión de Claude";
+"anchor.title.failed" = "Falló el anclaje";
+"anchor.title.off" = "Anclaje de ventana de 5 h desactivado";
+"anchor.title.started" = "La ventana de 5 h ya comenzó";
+"anchor.title.cooldown" = "Esta ventana de 5 h está anclada";
+"anchor.title.no_window" = "No se informó ventana de 5 h";
+"anchor.title.unknown" = "No se sabe si la ventana comenzó";
+"anchor.title.waiting" = "Esperando una nueva ventana de 5 h";
+"anchor.detail.running" = "Enviando un mensaje breve con Claude Code.";
+"anchor.detail.off" = "Actívalo para fijar automáticamente el reinicio de 5 h. Usa un mensaje breve de Haiku por ventana.";
+"anchor.detail.started" = "Comenzó por sí sola, así que su hora de reinicio ya es real.";
+"anchor.detail.cooldown" = "Nada más que hacer hasta la próxima ventana.";
+"anchor.detail.no_window" = "Claude no está devolviendo un límite de 5 horas ahora.";
+"anchor.detail.unknown" = "Claude no envió la hora de reinicio, así que el anclaje se pospone.";
+"anchor.detail.waiting" = "Ancla en cuanto una ventana de 5 h se reinicia y sigue sin usarse.";
+"anchor.last_anchored" = " Último anclaje %@.";
+"anchor.error.not_found" = "No se encontró la CLI de claude. Indica su ruta completa en Ajustes.";
+"anchor.error.not_executable" = "La ruta configurada de la CLI de claude no es ejecutable: %@";
+"anchor.error.launch_failed" = "No se pudo iniciar la CLI de claude. %@";
+"anchor.error.timed_out" = "La CLI de claude no terminó a tiempo.";
+"anchor.error.exit_status" = "La CLI de claude salió con el código %d.";
+"settings.claude_cli" = "CLI de claude";
+"settings.claude_cli_placeholder" = "Se detecta automáticamente";

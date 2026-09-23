@@ -110,3 +110,30 @@
 "settings.notifications_denied" = "Sistem Ayarları > Bildirimler'de kapalı";
 "limit.opus_weekly" = "Opus haftalık";
 "limit.model_weekly" = "%@ haftalık";
+
+/* 5-Hour Window Anchor */
+"anchor.toggle" = "5 saatlik pencereyi sabitle";
+"anchor.now" = "Şimdi sabitle";
+"anchor.title.running" = "Claude oturumu başlatılıyor";
+"anchor.title.failed" = "Sabitleme başarısız";
+"anchor.title.off" = "5 saatlik pencere sabitleme kapalı";
+"anchor.title.started" = "5 saatlik pencere zaten başladı";
+"anchor.title.cooldown" = "Bu 5 saatlik pencere sabitlendi";
+"anchor.title.no_window" = "5 saatlik pencere bildirilmedi";
+"anchor.title.unknown" = "Pencerenin başlayıp başlamadığı bilinmiyor";
+"anchor.title.waiting" = "Yeni 5 saatlik pencere bekleniyor";
+"anchor.detail.running" = "Claude Code ile kısa bir istem gönderiliyor.";
+"anchor.detail.off" = "5 saatlik sıfırlama zamanını otomatik sabitlemek için aç. Her pencerede kısa bir Haiku istemi kullanır.";
+"anchor.detail.started" = "Kendiliğinden başladı, sıfırlama zamanı zaten gerçek.";
+"anchor.detail.cooldown" = "Bir sonraki pencereye kadar yapılacak bir şey yok.";
+"anchor.detail.no_window" = "Claude şu anda 5 saatlik limit döndürmüyor.";
+"anchor.detail.unknown" = "Claude sıfırlama zamanını göndermedi, sabitleme bekletiliyor.";
+"anchor.detail.waiting" = "5 saatlik pencere sıfırlanıp dokunulmadan kaldığında sabitler.";
+"anchor.last_anchored" = " Son sabitleme %@.";
+"anchor.error.not_found" = "claude CLI bulunamadı. Tam yolunu Ayarlar'da belirtin.";
+"anchor.error.not_executable" = "Ayarlanan claude CLI yolu çalıştırılabilir değil: %@";
+"anchor.error.launch_failed" = "claude CLI başlatılamadı. %@";
+"anchor.error.timed_out" = "claude CLI zamanında bitmedi.";
+"anchor.error.exit_status" = "claude CLI %d durum koduyla çıktı.";
+"settings.claude_cli" = "claude CLI";
+"settings.claude_cli_placeholder" = "Otomatik bulunur";

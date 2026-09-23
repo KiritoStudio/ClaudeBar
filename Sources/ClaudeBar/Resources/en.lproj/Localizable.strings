@@ -110,3 +110,30 @@
 "settings.notifications_denied" = "Turned off in System Settings > Notifications";
 "limit.opus_weekly" = "Opus weekly";
 "limit.model_weekly" = "%@ weekly";
+
+/* 5-Hour Window Anchor */
+"anchor.toggle" = "Anchor 5h window";
+"anchor.now" = "Anchor now";
+"anchor.title.running" = "Starting a Claude session";
+"anchor.title.failed" = "Anchor attempt failed";
+"anchor.title.off" = "5h window anchor is off";
+"anchor.title.started" = "5h window already started";
+"anchor.title.cooldown" = "This 5h window is anchored";
+"anchor.title.no_window" = "No 5h window reported";
+"anchor.title.unknown" = "Cannot tell if the window started";
+"anchor.title.waiting" = "Waiting for a fresh 5h window";
+"anchor.detail.running" = "Sending one short prompt with Claude Code.";
+"anchor.detail.off" = "Turn on to pin the 5h reset time automatically. Uses one short Haiku prompt per window.";
+"anchor.detail.started" = "It started on its own, so its reset time is already real.";
+"anchor.detail.cooldown" = "Nothing more to do until the next window.";
+"anchor.detail.no_window" = "Claude is not returning a 5-hour limit right now.";
+"anchor.detail.unknown" = "Claude left out the reset timing, so anchoring is held back.";
+"anchor.detail.waiting" = "Anchors as soon as a 5h window resets and stays untouched.";
+"anchor.last_anchored" = " Last anchored %@.";
+"anchor.error.not_found" = "Could not find the claude CLI. Set its full path in Settings.";
+"anchor.error.not_executable" = "The configured claude CLI path is not executable: %@";
+"anchor.error.launch_failed" = "Could not launch the claude CLI. %@";
+"anchor.error.timed_out" = "The claude CLI did not finish in time.";
+"anchor.error.exit_status" = "The claude CLI exited with status %d.";
+"settings.claude_cli" = "claude CLI";
+"settings.claude_cli_placeholder" = "Found automatically";
